@@ -12,8 +12,18 @@
     >
 
   <TextView
-      android:text="Hello World!"
+      android:id="@+id/text_view"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
+      android:text="blabla"
+      />
+
+  <TextView
+      android:id="@+id/show_more"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_below="@id/text_view"
+      android:text="Show More"
+      android:textColor="#5c84ff"
       />
 </RelativeLayout>
