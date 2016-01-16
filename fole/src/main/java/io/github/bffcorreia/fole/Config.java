@@ -10,7 +10,7 @@ public class Config {
 
   private String text;
   private int maxLines;
-  private String ellipsizePlaceholder;
+  private String ellipsisPlaceholder;
   private View expandableView;
   private FoleCallback callback;
 
@@ -20,7 +20,7 @@ public class Config {
     this.fole = fole;
     this.text = null;
     this.maxLines = 1;
-    this.ellipsizePlaceholder = "...";
+    this.ellipsisPlaceholder = "...";
     this.isTextViewExpanded = false;
   }
 
@@ -35,9 +35,9 @@ public class Config {
     return this;
   }
 
-  public Config ellipsizePlaceholder(String ellipsizePlaceholder) {
+  public Config ellipsisPlaceholder(String ellipsizePlaceholder) {
     Preconditions.checkArgument(ellipsizePlaceholder != null, "Placeholder must not be null.");
-    this.ellipsizePlaceholder = ellipsizePlaceholder;
+    this.ellipsisPlaceholder = ellipsizePlaceholder;
     return this;
   }
 
@@ -102,8 +102,8 @@ public class Config {
           int lineEndIndex = fole.textView.getLayout().getLineEnd(maxLines - 1);
 
           String ellipsizedText =
-              fole.textView.getText().subSequence(0, lineEndIndex - ellipsizePlaceholder.length())
-                  + ellipsizePlaceholder;
+              fole.textView.getText().subSequence(0, lineEndIndex - ellipsisPlaceholder.length())
+                  + ellipsisPlaceholder;
           fole.textView.setText(ellipsizedText);
 
           expandableView.setVisibility(View.VISIBLE);
