@@ -33,7 +33,7 @@ If you want to know when the TextView expand or collapse just add a FoleCallback
              // Handle onTextCollapse!
           }
         };
-´´´
+```
 
 ``` java
     Fole.with(yourTextView).maxLines(4).toggle(toggleView, callback);
