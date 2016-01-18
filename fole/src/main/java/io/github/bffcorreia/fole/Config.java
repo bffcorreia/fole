@@ -68,7 +68,7 @@ public class Config {
   }
 
   private void onActionPerformed() {
-    Log.i("Fole", "Clicked");
+    Log.i("Fole", "Clicked: " + this.isTextViewExpanded);
     this.fole.textView.setText(this.text);
 
     if (this.isTextViewExpanded) {
@@ -107,10 +107,12 @@ public class Config {
           expandableView.setVisibility(View.VISIBLE);
           isTextViewExpanded = false;
           addActionInfoIfCallbackIsSet(false);
+          Log.i("Fole", "isTextViewExpanded1: " + isTextViewExpanded);
         } else {
           Log.i("Fole", "exapaaand");
           expandableView.setVisibility(View.GONE);
           isTextViewExpanded = true;
+          Log.i("Fole", "isTextViewExpanded2: " + isTextViewExpanded);
         }
 
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
