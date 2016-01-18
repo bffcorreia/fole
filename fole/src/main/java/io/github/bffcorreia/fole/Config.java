@@ -1,6 +1,7 @@
 package io.github.bffcorreia.fole;
 
 import android.os.Build;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewTreeObserver;
 
@@ -67,6 +68,7 @@ public class Config {
   }
 
   private void onActionPerformed() {
+    Log.i("Fole", "Clicked");
     this.fole.textView.setText(this.text);
 
     if (this.isTextViewExpanded) {
@@ -92,7 +94,9 @@ public class Config {
 
     treeObserver.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
       @SuppressWarnings("deprecation") @Override public void onGlobalLayout() {
+        Log.i("Fole", "onGlobalLayout: " + fole.textView.getLineCount());
         if (fole.textView.getLineCount() > maxLines) {
+          Log.i("Fole", "collapseeee");
           int lineEndIndex = fole.textView.getLayout().getLineEnd(maxLines - 1);
 
           String ellipsizedText =
@@ -104,6 +108,7 @@ public class Config {
           isTextViewExpanded = false;
           addActionInfoIfCallbackIsSet(false);
         } else {
+          Log.i("Fole", "exapaaand");
           expandableView.setVisibility(View.GONE);
           isTextViewExpanded = true;
         }
