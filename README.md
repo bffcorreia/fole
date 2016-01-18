@@ -1,3 +1,5 @@
+[![Release](https://jitpack.io/v/bffcorreia/fole.svg)](https://jitpack.io/#bffcorreia/fole)
+
 # fole
 
 Fole is a simple library that handles a toggle for you, to expand and collapse a TextView.
@@ -5,7 +7,16 @@ This is only a Beta version, not tested yet!
 
 ## Installing
 
-TODO: Publish to a public repository...
+``` groovy
+    repositories {
+        // ...
+        maven { url 'https://jitpack.io' }
+    }
+
+    dependencies {
+        compile 'com.github.bffcorreia:fole:v0.1-alpha'
+    }
+```
 
 ## Basic Usage
 
@@ -42,5 +53,4 @@ If you want to know when the TextView expand or collapse just add a FoleCallback
 ## TODO
 
 - Tests
-- Publish to public repository
 - More...
