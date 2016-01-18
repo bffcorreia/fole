@@ -71,8 +71,6 @@ public class Config {
 
     if (this.isTextViewExpanded) {
       handleViewState();
-      this.isTextViewExpanded = false;
-      addActionInfoIfCallbackIsSet(false);
     } else {
       this.isTextViewExpanded = true;
       addActionInfoIfCallbackIsSet(true);
@@ -104,6 +102,7 @@ public class Config {
 
           expandableView.setVisibility(View.VISIBLE);
           isTextViewExpanded = false;
+          addActionInfoIfCallbackIsSet(false);
         } else {
           expandableView.setVisibility(View.GONE);
           isTextViewExpanded = true;
