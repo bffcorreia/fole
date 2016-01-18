@@ -21,7 +21,6 @@ public class Config {
     this.text = null;
     this.maxLines = 1;
     this.ellipsisPlaceholder = "...";
-    this.isTextViewExpanded = false;
   }
 
   public Config text(String text) {
@@ -64,10 +63,7 @@ public class Config {
 
   private void addOnExpandableViewClickListener() {
     this.expandableView.setClickable(true);
-
-    this.expandableView.setOnClickListener(view -> {
-      onActionPerformed();
-    });
+    this.expandableView.setOnClickListener(view -> onActionPerformed());
   }
 
   private void onActionPerformed() {
@@ -107,8 +103,10 @@ public class Config {
           fole.textView.setText(ellipsizedText);
 
           expandableView.setVisibility(View.VISIBLE);
+          isTextViewExpanded = false;
         } else {
           expandableView.setVisibility(View.GONE);
+          isTextViewExpanded = true;
         }
 
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
