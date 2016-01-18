@@ -3,7 +3,8 @@
 # fole
 
 Fole is a simple library that handles a toggle for you, to expand and collapse a TextView.
-This is only a Beta version, not tested yet!
+
+This is only the Alpha version, not tested yet!
 
 ## Installing
 
@@ -14,7 +15,7 @@ This is only a Beta version, not tested yet!
     }
 
     dependencies {
-        compile 'com.github.bffcorreia:fole:v0.1-alpha'
+        compile 'com.github.bffcorreia:fole:v0.4-alpha'
     }
 ```
 
