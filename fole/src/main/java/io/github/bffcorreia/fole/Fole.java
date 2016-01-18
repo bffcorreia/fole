@@ -4,8 +4,6 @@ import android.widget.TextView;
 
 public class Fole {
 
-  static volatile Fole singleton = null;
-
   final TextView textView;
 
   public Fole(TextView textView) {
@@ -13,13 +11,7 @@ public class Fole {
   }
 
   public static Config with(TextView textView) {
-    if (singleton == null) {
-      synchronized (Fole.class) {
-        if (singleton == null) {
-          singleton = new Builder(textView).build();
-        }
-      }
-    }
-    return new Config(singleton);
+    Preconditions.checkArgument(textView != null, "TextView must not be bull.");
+    return new Config(new Fole(textView));
   }
 }
