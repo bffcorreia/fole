@@ -69,14 +69,13 @@ public class Config {
 
   private void onActionPerformed() {
     Log.i("Fole", "Clicked: " + this.isTextViewExpanded);
-    this.fole.textView.setText(this.text);
-
     if (this.isTextViewExpanded) {
       handleViewState();
     } else {
       this.isTextViewExpanded = true;
       addActionInfoIfCallbackIsSet(true);
     }
+    this.fole.textView.setText(this.text);
   }
 
   private void addActionInfoIfCallbackIsSet(boolean wasExpanded) {
@@ -90,6 +89,7 @@ public class Config {
   }
 
   private void handleViewState() {
+    Log.i("Fole", "handleViewState");
     ViewTreeObserver treeObserver = fole.textView.getViewTreeObserver();
 
     treeObserver.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
