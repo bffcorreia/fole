@@ -4,15 +4,18 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 import io.github.bffcorreia.fole.Fole;
+import io.github.bffcorreia.fole.FoleCallback;
 
 public class MainActivity extends AppCompatActivity {
+
+  TextView textView, toggleView;
 
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
 
-    TextView textView = (TextView) findViewById(R.id.text_view);
-    final TextView showMore = (TextView) findViewById(R.id.show_more);
+    textView = (TextView) findViewById(R.id.text_view);
+    toggleView = (TextView) findViewById(R.id.togle_view);
 
     String text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor "
         + "incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud "
@@ -21,6 +24,16 @@ public class MainActivity extends AppCompatActivity {
         + "pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia "
         + "deserunt mollit anim id est laborum.";
 
-    Fole.with(textView).text(text).maxLines(2).toggle(showMore);
+    FoleCallback callback = new FoleCallback() {
+      @Override public void onTextExpand() {
+        toggleView.setText("Show Less");
+      }
+
+      @Override public void onTextCollapse() {
+        toggleView.setText("Show More");
+      }
+    };
+
+    Fole.with(textView).text(text).maxLines(2).toggleView(toggleView, callback);
   }
 }

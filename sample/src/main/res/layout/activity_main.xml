@@ -15,15 +15,13 @@
       android:id="@+id/text_view"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:text="blabla"
       />
 
   <TextView
-      android:id="@+id/show_more"
+      android:id="@+id/togle_view"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_below="@id/text_view"
-      android:text="Show More"
       android:textColor="#5c84ff"
       />
 </RelativeLayout>
