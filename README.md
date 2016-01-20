@@ -15,20 +15,20 @@ This is only the Alpha version, not tested yet!
     }
 
     dependencies {
-        compile 'com.github.bffcorreia:fole:v0.4-alpha'
+        compile 'com.github.bffcorreia:fole:v0.4.4-alpha'
     }
 ```
 
 ## Basic Usage
 
 ``` java
-    Fole.with(yourTextView).text("Your text...").maxLines(4).toggle(toggleView);
+    Fole.with(yourTextView).text("Your text...").maxLines(4).toggleView(yourToggleView);
 ```
 
 ### Ellipsis Placeholder
 
 ``` java
-    Fole.with(yourTextView).maxLines(4).ellipsisPlaceholder("###").toggle(toggleView);
+    Fole.with(yourTextView).maxLines(4).ellipsisPlaceholder("###").toggleView(yourToggleView);
 ```
 
 ### Callback
@@ -48,7 +48,7 @@ If you want to know when the TextView expand or collapse just add a FoleCallback
 ```
 
 ``` java
-    Fole.with(yourTextView).maxLines(4).toggle(toggleView, callback);
+    Fole.with(yourTextView).maxLines(4).toggleView(yourToggleView, callback);
 ```
 
 ## TODO
