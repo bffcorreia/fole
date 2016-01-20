@@ -1,7 +1,6 @@
 package io.github.bffcorreia.fole;
 
 import android.os.Build;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewTreeObserver;
 
@@ -12,7 +11,7 @@ public class Config {
   private String text;
   private int maxLines;
   private String ellipsisPlaceholder;
-  private View expandableView;
+  private View toggleView;
   private FoleCallback callback;
 
   private boolean isTextViewExpanded;
@@ -41,13 +40,13 @@ public class Config {
     return this;
   }
 
-  public void toggle(View expandableView) {
-    Preconditions.checkArgument(expandableView != null, "View must not be null.");
-    toggle(expandableView, null);
+  public void toggleView(View toggleView) {
+    Preconditions.checkArgument(toggleView != null, "Toggle view must not be null.");
+    toggle(toggleView, null);
   }
 
-  public void toggle(View expandableView, FoleCallback callback) {
-    this.expandableView = expandableView;
+  public void toggle(View toggleView, FoleCallback callback) {
+    this.toggleView = toggleView;
     this.callback = callback;
 
     addOnExpandableViewClickListener();
@@ -63,12 +62,11 @@ public class Config {
   }
 
   private void addOnExpandableViewClickListener() {
-    this.expandableView.setClickable(true);
-    this.expandableView.setOnClickListener(view -> onActionPerformed());
+    this.toggleView.setClickable(true);
+    this.toggleView.setOnClickListener(view -> onActionPerformed());
   }
 
   private void onActionPerformed() {
-    Log.i("Fole", "Clicked: " + this.isTextViewExpanded);
     if (this.isTextViewExpanded) {
       handleViewState();
     } else {
@@ -89,14 +87,11 @@ public class Config {
   }
 
   private void handleViewState() {
-    Log.i("Fole", "handleViewState");
     ViewTreeObserver treeObserver = fole.textView.getViewTreeObserver();
 
     treeObserver.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
       @SuppressWarnings("deprecation") @Override public void onGlobalLayout() {
-        Log.i("Fole", "onGlobalLayout: " + fole.textView.getLineCount());
         if (fole.textView.getLineCount() > maxLines) {
-          Log.i("Fole", "collapseeee");
           int lineEndIndex = fole.textView.getLayout().getLineEnd(maxLines - 1);
 
           String ellipsizedText =
@@ -104,15 +99,12 @@ public class Config {
                   + ellipsisPlaceholder;
           fole.textView.setText(ellipsizedText);
 
-          expandableView.setVisibility(View.VISIBLE);
+          toggleView.setVisibility(View.VISIBLE);
           isTextViewExpanded = false;
           addActionInfoIfCallbackIsSet(false);
-          Log.i("Fole", "isTextViewExpanded1: " + isTextViewExpanded);
         } else {
-          Log.i("Fole", "exapaaand");
-          expandableView.setVisibility(View.GONE);
+          toggleView.setVisibility(View.GONE);
           isTextViewExpanded = true;
-          Log.i("Fole", "isTextViewExpanded2: " + isTextViewExpanded);
         }
 
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
