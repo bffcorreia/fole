@@ -63,7 +63,11 @@ public class Config {
 
   private void addOnExpandableViewClickListener() {
     this.toggleView.setClickable(true);
-    this.toggleView.setOnClickListener(view -> onActionPerformed());
+    this.toggleView.setOnClickListener(new View.OnClickListener() {
+      @Override public void onClick(View view) {
+        onActionPerformed();
+      }
+    });
   }
 
   private void onActionPerformed() {
