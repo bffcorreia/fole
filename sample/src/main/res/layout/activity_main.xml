@@ -18,7 +18,7 @@
       />
 
   <TextView
-      android:id="@+id/togle_view"
+      android:id="@+id/toggle_view"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_below="@id/text_view"
