@@ -11,7 +11,7 @@ public class Fole {
   }
 
   public static Config with(TextView textView) {
-    Preconditions.checkArgument(textView != null, "TextView must not be bull.");
+    Preconditions.checkArgument(textView != null, "TextView must not be null.");
     return new Config(new Fole(textView));
   }
 }
