@@ -20,7 +20,7 @@ public class Config {
   public Config(Fole fole) {
     this.fole = fole;
     this.text = null;
-    this.ellipsisPlaceholder = "…";
+    this.ellipsisPlaceholder = "...";
   }
 
   public Config text(String text) {
