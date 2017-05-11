@@ -4,6 +4,12 @@
 
 Fole is a simple library that handles a toggle for you, to expand and collapse a TextView.
 
+## Demo
+<Change the branch on merge and remove the comment>
+<p>
+   <img src="https://raw.githubusercontent.com/bffcorreia/fole/add-max-chars/fole-sample.gif"/>
+</p>
+
 ## Installing
 
 ``` groovy
