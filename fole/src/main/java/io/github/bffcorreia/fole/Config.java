@@ -10,6 +10,7 @@ public class Config {
 
   private String text;
   private int maxLines;
+  private int maxChars;
   private String ellipsisPlaceholder;
   private View toggleView;
   private FoleCallback callback;
@@ -19,8 +20,7 @@ public class Config {
   public Config(Fole fole) {
     this.fole = fole;
     this.text = null;
-    this.maxLines = 1;
-    this.ellipsisPlaceholder = "...";
+    this.ellipsisPlaceholder = "…";
   }
 
   public Config text(String text) {
@@ -30,7 +30,15 @@ public class Config {
 
   public Config maxLines(int maxLines) {
     Preconditions.checkArgument(maxLines > 0, "MaxLines must not be 0.");
+    Preconditions.checkState(maxChars == 0, "MaxChars and MaxLines can not be used at same time.");
     this.maxLines = maxLines;
+    return this;
+  }
+
+  public Config maxChars(int maxChars) {
+    Preconditions.checkArgument(maxChars > 0, "MaxChars must not be 0.");
+    Preconditions.checkState(maxLines == 0, "MaxLines and MaxChars can not be used at same time.");
+    this.maxChars = maxChars;
     return this;
   }
 
@@ -91,18 +99,21 @@ public class Config {
   }
 
   private void handleViewState() {
+    Preconditions.checkState(maxLines > 0 || maxChars > 0, "You need to add MaxLines or MaxChars.");
+    if (maxLines > 0) {
+      addListener(new MaxLinesStateHandler(fole.textView, ellipsisPlaceholder, maxLines));
+    } else {
+      addListener(new MaxCharsStateHandler(fole.textView, ellipsisPlaceholder, maxChars));
+    }
+  }
+
+  private void addListener(final TextViewStateHandler textViewStateHandler) {
     ViewTreeObserver treeObserver = fole.textView.getViewTreeObserver();
 
     treeObserver.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
       @SuppressWarnings("deprecation") @Override public void onGlobalLayout() {
-        if (fole.textView.getLineCount() > maxLines) {
-          int lineEndIndex = fole.textView.getLayout().getLineEnd(maxLines - 1);
-
-          String ellipsizedText =
-              fole.textView.getText().subSequence(0, lineEndIndex - ellipsisPlaceholder.length())
-                  + ellipsisPlaceholder;
-          fole.textView.setText(ellipsizedText);
-
+        if (textViewStateHandler.isTextExpanded()) {
+          fole.textView.setText(textViewStateHandler.ellipsizedText());
           toggleView.setVisibility(View.VISIBLE);
           isTextViewExpanded = false;
           addActionInfoIfCallbackIsSet(false);
