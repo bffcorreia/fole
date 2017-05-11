@@ -20,7 +20,9 @@ public class MaxLinesStateHandler implements TextViewStateHandler {
 
   @Override public String ellipsizedText() {
     int lineEndIndex = textView.getLayout().getLineEnd(maxLines - 1);
-    return textView.getText().subSequence(0, lineEndIndex - ellipsisPlaceholder.length())
-        + ellipsisPlaceholder;
+    return textView.getText()
+        .subSequence(0, lineEndIndex - ellipsisPlaceholder.length())
+        .toString()
+        .trim() + ellipsisPlaceholder;
   }
 }

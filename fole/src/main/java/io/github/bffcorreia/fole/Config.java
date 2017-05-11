@@ -63,15 +63,15 @@ public class Config {
   }
 
   private void initText() {
-    if (this.text == null) {
-      this.text = this.fole.textView.getText().toString();
+    if (text == null) {
+      text = fole.textView.getText().toString();
     }
-    this.fole.textView.setText(this.text);
+    fole.textView.setText(text);
   }
 
   private void addOnExpandableViewClickListener() {
-    this.toggleView.setClickable(true);
-    this.toggleView.setOnClickListener(new View.OnClickListener() {
+    toggleView.setClickable(true);
+    toggleView.setOnClickListener(new View.OnClickListener() {
       @Override public void onClick(View view) {
         onActionPerformed();
       }
@@ -79,21 +79,22 @@ public class Config {
   }
 
   private void onActionPerformed() {
-    if (this.isTextViewExpanded) {
+    if (isTextViewExpanded) {
       handleViewState();
+      fole.textView.setText(text);
     } else {
-      this.isTextViewExpanded = true;
+      isTextViewExpanded = true;
+      fole.textView.setText(text);
       addActionInfoIfCallbackIsSet(true);
     }
-    this.fole.textView.setText(this.text);
   }
 
   private void addActionInfoIfCallbackIsSet(boolean wasExpanded) {
-    if (this.callback != null) {
+    if (callback != null) {
       if (wasExpanded) {
-        this.callback.onTextExpand();
+        callback.onTextExpand();
       } else {
-        this.callback.onTextCollapse();
+        callback.onTextCollapse();
       }
     }
   }

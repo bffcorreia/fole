@@ -19,6 +19,6 @@ public class MaxCharsStateHandler implements TextViewStateHandler {
   }
 
   @Override public String ellipsizedText() {
-    return textView.getText().subSequence(0, maxChars) + ellipsisPlaceholder;
+    return textView.getText().subSequence(0, maxChars).toString().trim() + ellipsisPlaceholder;
   }
 }
