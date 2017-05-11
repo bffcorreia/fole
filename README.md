@@ -18,7 +18,7 @@ Fole is a simple library that handles a toggle for you, to expand and collapse a
     }
 
     dependencies {
-        compile 'com.github.bffcorreia:fole:v0.5.1'
+        compile 'com.github.bffcorreia:fole:0.5.2'
     }
 ```
 
