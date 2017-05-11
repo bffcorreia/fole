@@ -115,13 +115,13 @@ public class Config {
       @SuppressWarnings("deprecation") @Override public void onGlobalLayout() {
         if (textViewStateHandler.isTextExpanded()) {
           fole.textView.setText(textViewStateHandler.ellipsizedText());
-          toggleView.setVisibility(View.VISIBLE);
           isTextViewExpanded = false;
           addActionInfoIfCallbackIsSet(false);
         } else {
-          toggleView.setVisibility(View.GONE);
           isTextViewExpanded = true;
         }
+
+        showOrHideToggleViewIfNeeded();
 
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
           fole.textView.getViewTreeObserver().removeGlobalOnLayoutListener(this);
@@ -130,5 +130,14 @@ public class Config {
         }
       }
     });
+  }
+
+  private void showOrHideToggleViewIfNeeded() {
+    if (toggleView == fole.textView) return;
+    if (isTextViewExpanded) {
+      toggleView.setVisibility(View.GONE);
+    } else {
+      toggleView.setVisibility(View.VISIBLE);
+    }
   }
 }
