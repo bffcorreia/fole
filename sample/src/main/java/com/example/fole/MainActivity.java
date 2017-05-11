@@ -9,12 +9,16 @@ import io.github.bffcorreia.fole.FoleCallback;
 public class MainActivity extends AppCompatActivity {
 
   public static final String TEXT =
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor "
-      + "incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud "
-      + "exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute "
-      + "irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla "
-      + "pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia "
-      + "deserunt mollit anim id est laborum.";
+      "\"Warning: If you are reading this then this warning is for you. "
+          + "Every word you read of this useless fine print is another second off your life. "
+          + "Don't you have other things to do? Is your life so empty that you honestly can't think "
+          + "of a better way to spend these moments? Or are you so impressed with authority that you "
+          + "give respect and credence to all that claim it? Do you read everything you're supposed "
+          + "to read? Do you think every thing you're supposed to think? Buy what you're told to "
+          + "want? Get out of your apartment. Meet a member of the opposite sex. Stop the excessive "
+          + "shopping and masturbation. Quit your job. Start a fight. Prove you're alive. "
+          + "If you don't claim your humanity you will become a statistic. "
+          + "You have been warned.\"";
 
   TextView textView, toggleView;
 
