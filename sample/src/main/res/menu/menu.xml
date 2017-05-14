@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+  <item
+      android:id="@+id/max_lines"
+      android:title="@string/menu_max_lines"
+      app:showAsAction="never">
+  </item>
+  <item
+      android:id="@+id/max_chars"
+      android:title="@string/menu_max_chars"
+      app:showAsAction="never">
+  </item>
+</menu>

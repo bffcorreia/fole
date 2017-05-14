@@ -1,3 +1,7 @@
 <resources>
-  <string name="app_name">fole-root</string>
+  <string name="app_name">Fole Sample</string>
+  <string name="show_less">Show Less</string>
+  <string name="show_more">Show More</string>
+  <string name="menu_max_lines">Max of 2 lines</string>
+  <string name="menu_max_chars">Max of 62 chars</string>
 </resources>

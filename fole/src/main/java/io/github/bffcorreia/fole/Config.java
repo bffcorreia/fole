@@ -49,11 +49,11 @@ public class Config {
   }
 
   public void toggleView(View toggleView) {
-    Preconditions.checkArgument(toggleView != null, "Toggle view must not be null.");
     toggleView(toggleView, null);
   }
 
   public void toggleView(View toggleView, FoleCallback callback) {
+    Preconditions.checkArgument(toggleView != null, "Toggle view must not be null.");
     this.toggleView = toggleView;
     this.callback = callback;
 

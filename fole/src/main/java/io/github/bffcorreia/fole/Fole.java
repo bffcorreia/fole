@@ -6,7 +6,7 @@ public class Fole {
 
   final TextView textView;
 
-  public Fole(TextView textView) {
+  private Fole(TextView textView) {
     this.textView = textView;
   }
 

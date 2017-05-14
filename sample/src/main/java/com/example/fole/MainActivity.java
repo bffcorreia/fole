@@ -1,7 +1,15 @@
 package com.example.fole;
 
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.ForegroundColorSpan;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 import io.github.bffcorreia.fole.Fole;
 import io.github.bffcorreia.fole.FoleCallback;
@@ -21,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
           + "You have been warned.\"";
 
   TextView textView, toggleView;
+  private boolean isInMaxLinesMode;
 
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -29,16 +38,90 @@ public class MainActivity extends AppCompatActivity {
     textView = (TextView) findViewById(R.id.text_view);
     toggleView = (TextView) findViewById(R.id.toggle_view);
 
-    FoleCallback callback = new FoleCallback() {
+    initState(savedInstanceState);
+    initView();
+  }
+
+  @Override public boolean onCreateOptionsMenu(Menu menu) {
+    MenuInflater inflater = getMenuInflater();
+    inflater.inflate(R.menu.menu, menu);
+    return true;
+  }
+
+  @Override public boolean onOptionsItemSelected(MenuItem item) {
+    switch (item.getItemId()) {
+      case R.id.max_lines:
+        isInMaxLinesMode = true;
+        break;
+      case R.id.max_chars:
+        isInMaxLinesMode = false;
+        break;
+      default:
+        return super.onOptionsItemSelected(item);
+    }
+    recreate();
+    return true;
+  }
+
+  @Override protected void onSaveInstanceState(Bundle outState) {
+    outState.putBoolean("isInMaxLinesMode", isInMaxLinesMode);
+    super.onSaveInstanceState(outState);
+  }
+
+  private void initState(Bundle savedInstanceState) {
+    if (savedInstanceState != null) {
+      isInMaxLinesMode = savedInstanceState.getBoolean("isInMaxLinesMode");
+    } else {
+      isInMaxLinesMode = true;
+    }
+  }
+
+  private void initView() {
+    if (isInMaxLinesMode) {
+      toggleView.setVisibility(View.VISIBLE);
+      Fole.with(textView)
+          .text(TEXT)
+          .maxLines(2)
+          .toggleView(toggleView, buildMaxLinesFoleCallback());
+    } else {
+      toggleView.setVisibility(View.GONE);
+      Fole.with(textView)
+          .text(TEXT)
+          .maxChars(62)
+          .toggleView(textView, buildMaxCharsFoleCallback());
+    }
+  }
+
+  private FoleCallback buildMaxLinesFoleCallback() {
+    return new FoleCallback() {
       @Override public void onTextExpand() {
-        toggleView.setText("Show Less");
+        toggleView.setText(R.string.show_less);
       }
 
       @Override public void onTextCollapse() {
-        toggleView.setText("Show More");
+        toggleView.setText(R.string.show_more);
       }
     };
+  }
 
-    Fole.with(textView).text(TEXT).maxLines(2).toggleView(toggleView, callback);
+  private FoleCallback buildMaxCharsFoleCallback() {
+    return new FoleCallback() {
+      @Override public void onTextExpand() {
+        appendToggleTextToTextView(getString(R.string.show_less).toLowerCase());
+      }
+
+      @Override public void onTextCollapse() {
+        appendToggleTextToTextView(getString(R.string.show_more).toLowerCase());
+      }
+    };
+  }
+
+  private void appendToggleTextToTextView(String toggleText) {
+    int color = ContextCompat.getColor(this, R.color.colorToggle);
+    ForegroundColorSpan span = new ForegroundColorSpan(color);
+    Spannable wordToSpan = new SpannableString(textView.getText() + " " + toggleText);
+    wordToSpan.setSpan(span, textView.length(), wordToSpan.length(),
+        Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+    textView.setText(wordToSpan);
   }
 }
