@@ -1,4 +1,4 @@
-[![Release](https://jitpack.io/v/bffcorreia/fole.svg)](https://jitpack.io/#bffcorreia/fole)
+[![BuddyBuild](https://dashboard.buddybuild.com/api/statusImage?appID=59197efc523ddd0001b5c558&branch=master&build=latest)](https://dashboard.buddybuild.com/apps/59197efc523ddd0001b5c558/build/latest?branch=master) [![Release](https://jitpack.io/v/bffcorreia/fole.svg)](https://jitpack.io/#bffcorreia/fole)
 
 # fole
 

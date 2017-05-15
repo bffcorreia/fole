@@ -12,7 +12,7 @@ android {
     targetSdkVersion 25
     versionCode 1
     versionName "1.0"
-    testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    testInstrumentationRunner 'android.support.test.runner.AndroidJUnitRunner'
   }
   buildTypes {
     release {
@@ -23,7 +23,6 @@ android {
 }
 
 dependencies {
-  testCompile 'junit:junit:4.12'
   compile 'com.android.support:appcompat-v7:25.3.1'
   androidTestCompile 'junit:junit:4.12'
   androidTestCompile 'com.github.blocoio:faker:1.2.5'
