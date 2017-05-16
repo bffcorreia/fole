@@ -1,6 +1,6 @@
 package io.github.bffcorreia.fole;
 
-public interface TextViewStateHandler {
+interface TextViewStateHandler {
   boolean isTextExpanded();
 
   String ellipsizedText();

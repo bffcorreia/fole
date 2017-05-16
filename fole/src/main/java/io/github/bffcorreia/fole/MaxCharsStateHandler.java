@@ -2,13 +2,13 @@ package io.github.bffcorreia.fole;
 
 import android.widget.TextView;
 
-public class MaxCharsStateHandler implements TextViewStateHandler {
+class MaxCharsStateHandler implements TextViewStateHandler {
 
   private final TextView textView;
   private final String ellipsisPlaceholder;
   private final int maxChars;
 
-  public MaxCharsStateHandler(TextView textView, String ellipsisPlaceholder, int maxChars) {
+  MaxCharsStateHandler(TextView textView, String ellipsisPlaceholder, int maxChars) {
     this.textView = textView;
     this.ellipsisPlaceholder = ellipsisPlaceholder;
     this.maxChars = maxChars;

@@ -2,13 +2,13 @@ package io.github.bffcorreia.fole;
 
 import android.widget.TextView;
 
-public class MaxLinesStateHandler implements TextViewStateHandler {
+class MaxLinesStateHandler implements TextViewStateHandler {
 
   private final TextView textView;
   private final String ellipsisPlaceholder;
   private final int maxLines;
 
-  public MaxLinesStateHandler(TextView textView, String ellipsisPlaceholder, int maxLines) {
+  MaxLinesStateHandler(TextView textView, String ellipsisPlaceholder, int maxLines) {
     this.textView = textView;
     this.ellipsisPlaceholder = ellipsisPlaceholder;
     this.maxLines = maxLines;

@@ -17,7 +17,7 @@ public class Config {
 
   private boolean isTextViewExpanded;
 
-  public Config(Fole fole) {
+  Config(Fole fole) {
     this.fole = fole;
     this.text = null;
     this.ellipsisPlaceholder = "...";
