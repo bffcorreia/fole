@@ -1,8 +1,30 @@
-[![BuddyBuild](https://dashboard.buddybuild.com/api/statusImage?appID=59197efc523ddd0001b5c558&branch=master&build=latest)](https://dashboard.buddybuild.com/apps/59197efc523ddd0001b5c558/build/latest?branch=master) [![Release](https://jitpack.io/v/bffcorreia/fole.svg)](https://jitpack.io/#bffcorreia/fole)
-
-# fole
+# Fole [![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/intent/tweet?text=Check%20Fole!&url=https%3A%2F%2Fgithub.com%2Fbffcorreia%2Ffole&via=bffcorreia&hashtags=android,androiddev,opensource)
 
 Fole is a simple library that handles a toggle for you, to expand and collapse a TextView.
+
+> Please, star this repo if you find it useful. 🙃
+
+-------
+<p align="center">
+    <a href="#demo">Demo</a> &bull;
+    <a href="#installing">Installing</a> &bull;
+    <a href="#basic-usage">Basic Usage</a> &bull;
+    <a href="#Callback">Callback</a>
+</p>
+
+-------
+
+<p align="center">
+  <a href="https://jitpack.io/#bffcorreia/fole">
+    <img src="https://jitpack.io/v/bffcorreia/fole.svg">
+  </a>
+  <a href="https://circleci.com/gh/bffcorreia/fole/tree/master">
+      <img src="https://circleci.com/gh/bffcorreia/fole/tree/master.svg?style=svg">
+    </a>
+  <a href="https://github.com/bffcorreia/fole/blob/master/LICENSE.txt">
+    <img src="https://img.shields.io/github/license/bffcorreia/fole.svg">
+  </a>
+</p>
 
 ## Demo
 <p>
@@ -18,7 +40,7 @@ Fole is a simple library that handles a toggle for you, to expand and collapse a
     }
 
     dependencies {
-        compile 'com.github.bffcorreia:fole:0.5.2'
+        implementation 'com.github.bffcorreia:fole:1.0.0'
     }
 ```
 
@@ -57,11 +79,6 @@ If you want to know when the TextView expands or collapses just add a FoleCallba
 ``` java
     Fole.with(yourTextView).maxLines(4).toggleView(yourToggleView, callback);
 ```
-
-## TODO
-
-- Tests
-- More...
 
 ## License
 
