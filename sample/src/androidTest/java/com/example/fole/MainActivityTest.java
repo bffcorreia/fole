@@ -3,6 +3,7 @@ package com.example.fole;
 import android.support.test.espresso.ViewInteraction;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
+import android.widget.TextView;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -15,10 +16,9 @@ import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.core.IsNot.not;
 import static org.hamcrest.core.StringContains.containsString;
-import static org.hamcrest.core.StringEndsWith.endsWith;
-import static org.hamcrest.core.StringStartsWith.startsWith;
 
 @RunWith(AndroidJUnit4.class) public class MainActivityTest {
 
@@ -31,8 +31,7 @@ import static org.hamcrest.core.StringStartsWith.startsWith;
     int times = 2;
 
     for (int i = 0; i < times; i++) {
-      assertExcerptIsVisible();
-      assertFullTextIsNotVisible();
+      assertTextHasOnlyTwoLines();
       assertEllipsisPlaceholderIsVisible();
       assertToggleViewHasShowMore();
 
@@ -53,8 +52,7 @@ import static org.hamcrest.core.StringStartsWith.startsWith;
     int times = 2;
 
     for (int i = 0; i < times; i++) {
-      assertExcerptIsVisible();
-      assertFullTextWithAppendedToggleTextIsNotVisible();
+      assertTextHasOnlySixtyTwoChars();
       assertEllipsisPlaceholderIsVisible();
       assertToggleViewIsNotVisible();
 
@@ -80,17 +78,14 @@ import static org.hamcrest.core.StringStartsWith.startsWith;
     onMaxCharsView().perform(click());
   }
 
-  private void assertExcerptIsVisible() {
-    String textStart = MainActivity.TEXT.substring(0, 30);
-    onTextView().check(matches(withText(startsWith(textStart))));
+  private void assertTextHasOnlyTwoLines() {
+    TextView textView = (TextView) activityTestRule.getActivity().findViewById(R.id.text_view);
+    assertThat(textView.getLineCount()).isEqualTo(2);
   }
 
-  private void assertFullTextIsNotVisible() {
-    onTextView().check(matches(not(withText(endsWith(MainActivity.TEXT)))));
-  }
-
-  private void assertFullTextWithAppendedToggleTextIsNotVisible() {
-    onTextView().check(matches(not(withText(endsWith(MainActivity.TEXT + " show less")))));
+  private void assertTextHasOnlySixtyTwoChars() {
+    String excerpt = MainActivity.TEXT.substring(0, 62);
+    onTextView().check(matches(withText(excerpt + ellipsisPlaceholder + " show more")));
   }
 
   private void assertFullTextIsVisible() {
@@ -121,6 +116,10 @@ import static org.hamcrest.core.StringStartsWith.startsWith;
     onToggleView().check(matches(not(isDisplayed())));
   }
 
+  private void openMenu() {
+    openActionBarOverflowOrOptionsMenu(getInstrumentation().getTargetContext());
+  }
+
   private ViewInteraction onToggleView() {
     return onView(withId(R.id.toggle_view));
   }
@@ -131,9 +130,5 @@ import static org.hamcrest.core.StringStartsWith.startsWith;
 
   private ViewInteraction onMaxCharsView() {
     return onView(withText(R.string.menu_max_chars));
-  }
-
-  private void openMenu() {
-    openActionBarOverflowOrOptionsMenu(getInstrumentation().getTargetContext());
   }
 }
