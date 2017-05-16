@@ -18,7 +18,7 @@ Fole is a simple library that handles a toggle for you, to expand and collapse a
     }
 
     dependencies {
-        compile 'com.github.bffcorreia:fole:0.5.2'
+        compile 'com.github.bffcorreia:fole:1.0.0'
     }
 ```
 
@@ -57,11 +57,6 @@ If you want to know when the TextView expands or collapses just add a FoleCallba
 ``` java
     Fole.with(yourTextView).maxLines(4).toggleView(yourToggleView, callback);
 ```
-
-## TODO
-
-- Tests
-- More...
 
 ## License
 
