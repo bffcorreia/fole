@@ -12,23 +12,56 @@
 default_platform(:android)
 
 platform :android do
-  desc "Runs all the tests"
-  lane :test do
-    gradle(task: "test")
+  before_all do |lane, options|
+    @build_type = "Debug"
+    if not options.empty?
+      @build_type = options[:release] ? "Release" : "Debug"
+    end
   end
 
-  desc "Submit a new Beta Build to Crashlytics Beta"
-  lane :beta do
-    gradle(task: "clean assembleRelease")
+  desc "Assemble Build"
+  lane :assemble_build do |options|
+    gradle(task: "assemble", build_type: @build_type)
+  end
+
+  desc "Assemble Test Application"
+  lane :assemble_test_application do |options|
+    gradle(task: "assemble", build_type: "#{@build_type}AndroidTest")
+  end
+
+  desc "Assemble Build and Test Application"
+  lane :assemble do |options|
+    assemble_build options
+    assemble_test_application options
+  end
+
+  desc "Run unit tests"
+  lane :unit_tests do |options|
+    gradle(task: "test", build_type: @build_type)
+  end
+
+  desc "Run instrumentation tests"
+  lane :instrumentation_tests do
+    automated_test_emulator_run(
+      AVD_setup_path: "fastlane/AVD_setup.json",
+      AVD_recreate_new: false,
+      AVD_clean_after: false,
+      gradle_task: "connectedDebugAndroidTest")
+  end
+
+  desc "Run instrumentation tests in Firebase Test Lab"
+  lane :instrumentation_tests_testlab do
+    assemble
+    run_tests_firebase_testlab(
+      project_id: "project-id",
+      model: "Nexus6P",
+      version: "27",
+      delete_firebase_files: true)
+  end
+
+  desc "Submit a new Beta Build to Crashlytics"
+  lane :deploy_to_crashlytics do
+    assemble_build
     crashlytics
-  
-    # sh "your_script.sh"
-    # You can also use other beta testing services here
-  end
-
-  desc "Deploy a new version to the Google Play"
-  lane :deploy do
-    gradle(task: "clean assembleRelease")
-    upload_to_play_store
   end
 end
