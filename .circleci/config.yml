@@ -54,27 +54,6 @@ references:
       command: ./gradlew androidDependencies
 
 jobs:
-  ## Run unit tests
-  test_unit:
-    <<: *android_config
-    steps:
-      - checkout
-      - *restore_gradle_cache
-      - *restore_gems_cache
-      - *ruby_dependencies
-      - *android_dependencies
-      - *save_gradle_cache
-      - *save_gems_cache
-      - run:
-          name: Run unit tests
-          command: bundle exec fastlane unit_tests
-      - store_artifacts:
-          path: fole/build/reports/
-          destination: /reports/
-      - store_test_results:
-          path: fole/build/test-results/
-          destination: /test-results/
-
   ## Run instrumentation tests
   test_instrumentation:
     <<: *android_config
@@ -86,9 +65,6 @@ jobs:
       - *android_dependencies
       - *save_gradle_cache
       - *save_gems_cache
-      # Since we will download a video, we require integrity checking with CRC32c
-      # But the crcmod installation in the docker image isn't using the module's C extension
-      # So, uninstall it and install again with the C extension
       - run:
           name: Uninstall crcmod
           command: echo "y" | sudo pip uninstall crcmod
@@ -96,8 +72,11 @@ jobs:
           name: Install crcmod
           command: sudo pip install -U crcmod
       - run:
-          name: Run instrumentation tests in Firebase testlab
-          command: bundle exec fastlane instrumentation_tests_testlab
+          name: Run Fole instrumentation tests in Firebase Test Lab
+          command: bundle exec fastlane fole_instrumentation_tests_testlab
+      - run:
+          name: Run Sample App instrumentation tests in Firebase Test Lab
+          command: bundle exec fastlane sample_instrumentation_tests_testlab
       - store_artifacts:
           path: firebase/
           destination: /firebase/
@@ -106,7 +85,4 @@ workflows:
   version: 2
   workflow:
     jobs:
-      - test_unit
-      - test_instrumentation:
-          requires:
-            - test_unit
+      - test_instrumentation

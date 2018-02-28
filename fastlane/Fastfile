@@ -14,18 +14,17 @@ default_platform(:android)
 platform :android do
   desc "Run Fole instrumentation tests in Firebase Test Lab"
   lane :fole_instrumentation_tests_testlab do
-    gradle(task: "fole:assemble", build_type: "Debug")
     gradle(task: "fole:assemble", build_type: "DebugAndroidTest")
     run_tests_firebase_testlab(
       project_id: "fole-34243",
       model: "Nexus6P",
       version: "27",
       delete_firebase_files: true,
-      app_apk: "",
+      app_apk: "fole/build/outputs/apk/fole-debug-androidTest.apk",
       android_test_apk: "fole/build/outputs/apk/fole-debug-androidTest.apk")
   end
 
-  desc "Run sample App  instrumentation tests in Firebase Test Lab"
+  desc "Run sample App instrumentation tests in Firebase Test Lab"
   lane :sample_instrumentation_tests_testlab do
     gradle(task: "sample:assemble", build_type: "Debug")
     gradle(task: "sample:assemble", build_type: "DebugAndroidTest")
