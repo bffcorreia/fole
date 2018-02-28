@@ -58,10 +58,4 @@ platform :android do
       version: "27",
       delete_firebase_files: true)
   end
-
-  desc "Submit a new Beta Build to Crashlytics"
-  lane :deploy_to_crashlytics do
-    assemble_build
-    crashlytics
-  end
 end

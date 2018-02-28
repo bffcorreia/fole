@@ -102,21 +102,6 @@ jobs:
           path: firebase/
           destination: /firebase/
 
-  ## Deploy to Crashlytics Beta
-  deploy_crashlytics:
-    <<: *android_config
-    steps:
-      - checkout
-      - *restore_gradle_cache
-      - *restore_gems_cache
-      - *ruby_dependencies
-      - *android_dependencies
-      - *save_gradle_cache
-      - *save_gems_cache
-      - run:
-          name: Deploy to Crashlytics Beta
-          command: bundle exec fastlane deploy_to_crashlytics
-
 workflows:
   version: 2
   workflow:
@@ -125,11 +110,3 @@ workflows:
       - test_instrumentation:
           requires:
             - test_unit
-      - deploy_crashlytics:
-          filters:
-            branches:
-              only:
-                - beta
-          requires:
-            - test_unit
-            - test_instrumentation
