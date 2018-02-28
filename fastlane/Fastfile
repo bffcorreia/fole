@@ -12,46 +12,15 @@
 default_platform(:android)
 
 platform :android do
-  before_all do |lane, options|
-    @build_type = "Debug"
-    if not options.empty?
-      @build_type = options[:release] ? "Release" : "Debug"
-    end
-  end
-
-  desc "Assemble Build"
-  lane :assemble_build do |options|
-    gradle(task: "assemble", build_type: @build_type)
-  end
-
-  desc "Assemble Test Application"
-  lane :assemble_test_application do |options|
-    gradle(task: "assemble", build_type: "#{@build_type}AndroidTest")
-  end
-
-  desc "Assemble Build and Test Application"
-  lane :assemble do |options|
-    assemble_build options
-    assemble_test_application options
-  end
-
   desc "Run unit tests"
   lane :unit_tests do |options|
-    gradle(task: "test", build_type: @build_type)
-  end
-
-  desc "Run instrumentation tests"
-  lane :instrumentation_tests do
-    automated_test_emulator_run(
-      AVD_setup_path: "fastlane/AVD_setup.json",
-      AVD_recreate_new: false,
-      AVD_clean_after: false,
-      gradle_task: "connectedDebugAndroidTest")
+    gradle(task: "fole:test", build_type: "Debug")
   end
 
   desc "Run instrumentation tests in Firebase Test Lab"
   lane :instrumentation_tests_testlab do
-    assemble
+    gradle(task: "sample:assemble", build_type: "Debug")
+    gradle(task: "sample:assemble", build_type: "DebugAndroidTest")
     run_tests_firebase_testlab(
       project_id: "fole-34243",
       model: "Nexus6P",
