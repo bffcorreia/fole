@@ -53,7 +53,7 @@ platform :android do
   lane :instrumentation_tests_testlab do
     assemble
     run_tests_firebase_testlab(
-      project_id: "project-id",
+      project_id: "fole-34243",
       model: "Nexus6P",
       version: "27",
       delete_firebase_files: true)
