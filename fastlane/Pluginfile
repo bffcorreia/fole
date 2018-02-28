@@ -3,4 +3,4 @@
 # Ensure this file is checked in to source control!
 
 gem 'fastlane-plugin-automated_test_emulator_run'
-gem 'fastlane-plugin-run_tests_firebase_testlab'
+gem "fastlane-plugin-run_tests_firebase_testlab", git: "https://github.com/pink-room/fastlane-plugin-run_tests_firebase_testlab.git", branch: "handle-firebase-errors"

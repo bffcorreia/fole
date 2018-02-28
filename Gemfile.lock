@@ -1,3 +1,10 @@
+GIT
+  remote: https://github.com/pink-room/fastlane-plugin-run_tests_firebase_testlab.git
+  revision: 4cc0c19172b3424324c0bdd6c94d8d74c9f3c1c4
+  branch: handle-firebase-errors
+  specs:
+    fastlane-plugin-run_tests_firebase_testlab (0.1.1)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -60,7 +67,6 @@ GEM
       xcpretty (>= 0.2.4, < 1.0.0)
       xcpretty-travis-formatter (>= 0.0.3)
     fastlane-plugin-automated_test_emulator_run (1.6.0)
-    fastlane-plugin-run_tests_firebase_testlab (0.1.0)
     gh_inspector (1.1.2)
     google-api-client (0.13.6)
       addressable (~> 2.5, >= 2.5.1)
@@ -143,7 +149,7 @@ PLATFORMS
 DEPENDENCIES
   fastlane
   fastlane-plugin-automated_test_emulator_run
-  fastlane-plugin-run_tests_firebase_testlab
+  fastlane-plugin-run_tests_firebase_testlab!
 
 BUNDLED WITH
    1.16.1
