@@ -1,9 +1,9 @@
 GIT
   remote: https://github.com/pink-room/fastlane-plugin-run_tests_firebase_testlab.git
-  revision: 4cc0c19172b3424324c0bdd6c94d8d74c9f3c1c4
+  revision: 181b807acf58fcc590275a20b85cc5f2b84de969
   branch: handle-firebase-errors
   specs:
-    fastlane-plugin-run_tests_firebase_testlab (0.1.1)
+    fastlane-plugin-run_tests_firebase_testlab (0.1.3)
 
 GEM
   remote: https://rubygems.org/
