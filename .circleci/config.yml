@@ -16,7 +16,7 @@ references:
 
   ## Cache
   gradle_key: &gradle_key
-    jar-{{ checksum "gradle/wrapper/gradle-wrapper.properties" }}-{{ checksum "build.gradle" }}-{{ checksum "app/build.gradle" }}
+    jars-{{ checksum "gradle/wrapper/gradle-wrapper.properties" }}-{{ checksum "build.gradle" }}-{{ checksum "fole/build.gradle" }}-{{ checksum "sample/build.gradle" }}
 
   gems_key: &gems_key
     gems-{{ checksum "Gemfile.lock" }}
