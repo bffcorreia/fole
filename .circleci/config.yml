@@ -1,0 +1,88 @@
+version: 2
+references:
+  ## Workspaces
+  workspace: &workspace
+    ~/src
+
+  ## Docker image configurations
+  android_config: &android_config
+    working_directory: *workspace
+    docker:
+      - image: circleci/android:api-27-alpha
+    environment:
+      TERM: dumb
+      _JAVA_OPTIONS: "-Xmx2048m -XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap"
+      GRADLE_OPTS: '-Dorg.gradle.jvmargs="-Xmx2048m"'
+
+  ## Cache
+  gradle_key: &gradle_key
+    jars-{{ checksum "gradle/wrapper/gradle-wrapper.properties" }}-{{ checksum "build.gradle" }}-{{ checksum "sample/build.gradle" }}
+
+  gems_key: &gems_key
+    gems-{{ checksum "Gemfile.lock" }}
+
+  restore_gradle_cache: &restore_gradle_cache
+    restore_cache:
+      key: *gradle_key
+
+  restore_gems_cache: &restore_gems_cache
+    restore_cache:
+      key: *gems_key
+
+  save_gradle_cache: &save_gradle_cache
+    save_cache:
+      key: *gradle_key
+      paths:
+        - ~/.gradle
+        - ~/.m2
+
+  save_gems_cache: &save_gems_cache
+    save_cache:
+      key: *gems_key
+      paths:
+        - vendor/bundle
+
+  ## Dependencies
+  ruby_dependencies: &ruby_dependencies
+    run:
+      name: Download Ruby Dependencies
+      command: bundle check || bundle install --path vendor/bundle
+
+  android_dependencies: &android_dependencies
+    run:
+      name: Download Android Dependencies
+      command: ./gradlew androidDependencies
+
+jobs:
+  ## Run instrumentation tests
+  test_instrumentation:
+    <<: *android_config
+    steps:
+      - checkout
+      - *restore_gradle_cache
+      - *restore_gems_cache
+      - *ruby_dependencies
+      - *android_dependencies
+      - *save_gradle_cache
+      - *save_gems_cache
+      # Since we will download a video, we require integrity checking with CRC32c
+      # But the crcmod installation in the docker image isn't using the module's C extension
+      # So, uninstall it and install again with the C extension
+      - run:
+          name: Uninstall crcmod
+          command: echo "y" | sudo pip uninstall crcmod
+      - run:
+          name: Install crcmod
+          command: sudo pip install -U crcmod
+      - run:
+          name: Run Sample instrumentation tests in Firebase testlab
+          command: bundle exec fastlane sample_instrumentation_tests
+      - store_artifacts:
+          path: firebase/
+          destination: /firebase/
+
+workflows:
+  version: 2
+  workflow:
+    jobs:
+      - test_instrumentation
