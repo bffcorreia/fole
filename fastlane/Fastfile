@@ -1,0 +1,46 @@
+# This file contains the fastlane.tools configuration
+# You can find the documentation at https://docs.fastlane.tools
+#
+# For a list of all available actions, check out
+#
+#     https://docs.fastlane.tools/actions
+#
+# For a list of all available plugins, check out
+#
+#     https://docs.fastlane.tools/plugins/available-plugins
+#
+
+# Uncomment the line if you want fastlane to automatically update itself
+# update_fastlane
+
+default_platform(:android)
+
+platform :android do
+  desc "Assemble Sample Build"
+  lane :assemble_sample_build do |options|
+    gradle(task: "sample:assemble", build_type: "Debug")
+  end
+
+  desc "Assemble Sample Test Application"
+  lane :assemble_sample_test_application do |options|
+    gradle(task: "sample:assemble", build_type: "DebugAndroidTest")
+  end
+
+  desc "Run Sample instrumentation tests in Firebase Test Lab"
+  lane :sample_instrumentation_tests do
+    assemble_sample
+    run_tests_firebase_testlab(
+      project_id: "fole-34243",
+      model: "Nexus6P",
+      version: "27",
+      delete_firebase_files: true,
+      app_apk: "sample/build/outputs/apk/sample-debug.apk",
+      android_test_apk: "sample/build/outputs/apk/sample-debug-androidTest.apk")
+  end
+
+  desc "Assemble Sample Build and Test Application"
+  lane :assemble_sample do |options|
+    assemble_sample_build options
+    assemble_sample_test_application options
+  end
+end
