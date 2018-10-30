@@ -35,8 +35,8 @@ public class MainActivity extends AppCompatActivity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
 
-    textView = (TextView) findViewById(R.id.text_view);
-    toggleView = (TextView) findViewById(R.id.toggle_view);
+    textView = findViewById(R.id.text_view);
+    toggleView = findViewById(R.id.toggle_view);
 
     initState(savedInstanceState);
     initView();

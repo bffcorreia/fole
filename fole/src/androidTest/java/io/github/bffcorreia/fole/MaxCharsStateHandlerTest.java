@@ -19,24 +19,24 @@ import static org.hamcrest.MatcherAssert.assertThat;
   private String ellipsisPlaceHolder = "...";
   private String text = "This is a text.";
 
-  @Before public void setUp() throws Exception {
+  @Before public void setUp() {
     Context context = InstrumentationRegistry.getTargetContext();
     textView = new TextView(context);
   }
 
-  @Test public void testTestViewIsExpanded() throws Exception {
+  @Test public void testTestViewIsExpanded() {
     textView.setText(text);
     handler = new MaxCharsStateHandler(textView, ellipsisPlaceHolder, 10);
     assertThat(handler.isTextExpanded(), is(true));
   }
 
-  @Test public void testTestViewIsNotExpanded() throws Exception {
+  @Test public void testTestViewIsNotExpanded() {
     textView.setText(text);
     handler = new MaxCharsStateHandler(textView, ellipsisPlaceHolder, 15);
     assertThat(handler.isTextExpanded(), is(false));
   }
 
-  @Test public void testEllipsizedText() throws Exception {
+  @Test public void testEllipsizedText() {
     textView.setText(text);
     handler = new MaxCharsStateHandler(textView, ellipsisPlaceHolder, 10);
     String expectedEllipsizedText = "This is a " + ellipsisPlaceHolder;

@@ -17,16 +17,4 @@ class Preconditions {
       throw new IllegalStateException(String.valueOf(errorMessage));
     }
   }
-
-  static <T> T checkNotNull(T reference, @Nullable Object errorMessage) {
-    if (reference == null) {
-      throw new NullPointerException(String.valueOf(errorMessage));
-    }
-    return reference;
-  }
-
-  static <T> T checkNull(T reference, @Nullable Object errorMessage) {
-    checkState(reference == null, errorMessage);
-    return reference;
-  }
 }

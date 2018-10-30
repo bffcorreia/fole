@@ -17,32 +17,29 @@ import static org.hamcrest.MatcherAssert.assertThat;
   private TextView textView;
   private Faker faker = new Faker();
 
-  @Before public void setUp() throws Exception {
+  @Before public void setUp() {
     Context context = InstrumentationRegistry.getTargetContext();
     textView = new TextView(context);
   }
 
   @Test(expected = IllegalStateException.class)
-  public void testExceptionIfMaxLinesAndMaxCharsUsedAtSameTime() throws Exception {
+  public void testExceptionIfMaxLinesAndMaxCharsUsedAtSameTime() {
     Fole.with(textView).maxChars(10).maxLines(2);
   }
 
-  @Test(expected = IllegalStateException.class) public void testSpecifyMaxLinesOrMaxChars()
-      throws Exception {
+  @Test(expected = IllegalStateException.class) public void testSpecifyMaxLinesOrMaxChars() {
     Fole.with(textView).toggleView(textView);
   }
 
-  @Test(expected = IllegalArgumentException.class) public void testEllipsisPlaceholderCannotBeNull()
-      throws Exception {
+  @Test(expected = IllegalArgumentException.class) public void testEllipsisPlaceholderCannotBeNull() {
     Fole.with(textView).ellipsisPlaceholder(null);
   }
 
-  @Test(expected = IllegalArgumentException.class) public void testToggleViewCannotBeNull()
-      throws Exception {
+  @Test(expected = IllegalArgumentException.class) public void testToggleViewCannotBeNull() {
     Fole.with(textView).toggleView(null);
   }
 
-  @Test public void testSetNewTextToTextView() throws Exception {
+  @Test public void testSetNewTextToTextView() {
     textView.setText(faker.lorem.sentence());
     String newText = faker.lorem.sentence();
     Fole.with(textView).text(newText).maxLines(1).toggleView(textView);
