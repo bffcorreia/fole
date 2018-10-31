@@ -34,8 +34,8 @@ platform :android do
       model: "Nexus6P",
       version: "27",
       delete_firebase_files: true,
-      app_apk: "sample/build/outputs/apk/sample-debug.apk",
-      android_test_apk: "sample/build/outputs/apk/sample-debug-androidTest.apk")
+      app_apk: "sample/build/outputs/apk/debug/sample-debug.apk",
+      android_test_apk: "sample/build/outputs/apk/androidTest/debug/sample-debug-androidTest.apk")
   end
 
   desc "Assemble Sample Build and Test Application"
