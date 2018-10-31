@@ -3,6 +3,7 @@ package io.github.bffcorreia.fole;
 import android.os.Build;
 import android.view.View;
 import android.view.ViewTreeObserver;
+import android.view.animation.Animation;
 
 public class Config {
 
@@ -14,6 +15,8 @@ public class Config {
   private String ellipsisPlaceholder;
   private View toggleView;
   private FoleCallback callback;
+  private Animation expandAnimation;
+  private Animation collapseAnimation;
 
   private boolean isTextViewExpanded;
 
@@ -45,6 +48,25 @@ public class Config {
   public Config ellipsisPlaceholder(String ellipsizePlaceholder) {
     Preconditions.checkArgument(ellipsizePlaceholder != null, "Placeholder must not be null.");
     this.ellipsisPlaceholder = ellipsizePlaceholder;
+    return this;
+  }
+
+  public Config animation(Animation animation) {
+    Preconditions.checkArgument(animation != null, "Animation must not be null.");
+    this.expandAnimation = animation;
+    this.collapseAnimation = animation;
+    return this;
+  }
+
+  public Config expandAnimation(Animation expandAnimation) {
+    Preconditions.checkArgument(expandAnimation != null, "Expand Animation must not be null.");
+    this.expandAnimation = expandAnimation;
+    return this;
+  }
+
+  public Config collapseAnimation(Animation collapseAnimation) {
+    Preconditions.checkArgument(collapseAnimation != null, "Collapse Animation must not be null.");
+    this.collapseAnimation = collapseAnimation;
     return this;
   }
 
@@ -82,9 +104,11 @@ public class Config {
     if (isTextViewExpanded) {
       handleViewState();
       fole.textView.setText(text);
+      startAnimation(collapseAnimation);
     } else {
       isTextViewExpanded = true;
       fole.textView.setText(text);
+      startAnimation(expandAnimation);
       addActionInfoIfCallbackIsSet(true);
     }
   }
@@ -139,5 +163,11 @@ public class Config {
     } else {
       toggleView.setVisibility(View.VISIBLE);
     }
+  }
+
+  private void startAnimation(Animation animation) {
+    if (animation == null) return;
+    fole.textView.clearAnimation();
+    fole.textView.startAnimation(animation);
   }
 }

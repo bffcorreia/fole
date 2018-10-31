@@ -9,7 +9,7 @@ Fole is a simple library that handles a toggle for you, to expand and collapse a
     <a href="#demo">Demo</a> &bull;
     <a href="#installing">Installing</a> &bull;
     <a href="#basic-usage">Basic Usage</a> &bull;
-    <a href="#Callback">Callback</a>
+    <a href="#animations">Animations</a>
 </p>
 
 -------
@@ -78,6 +78,36 @@ If you want to know when the TextView expands or collapses just add a FoleCallba
 
 ``` java
     Fole.with(yourTextView).maxLines(4).toggleView(yourToggleView, callback);
+```
+
+## Animations
+
+To animate the TextView when it extends or collapses, simply add your animation.
+
+``` java
+    Animation animation = AnimationUtils.loadAnimation(context, android.R.anim.fade_in);
+```
+
+``` java
+    Fole.with(yourTextView)
+        .maxLines(4)
+        .animation(animation)
+        .toggleView(yourToggleView);
+```
+
+If you want to use different animations:
+
+``` java
+    Animation expandAnimation = AnimationUtils.loadAnimation(context, android.R.anim.fade_in);
+    Animation collapseAnimation = AnimationUtils.loadAnimation(context, android.R.anim.slide_in_left);
+```
+
+``` java
+    Fole.with(yourTextView)
+        .maxLines(4)
+        .expandAnimation(expandAnimation)
+        .collapseAnimation(collapseAnimation)
+        .toggleView(yourToggleView);
 ```
 
 ## License

@@ -27,7 +27,7 @@ import static org.hamcrest.core.StringContains.containsString;
 
   private String ellipsisPlaceholder = "...";
 
-  @Test public void testMaxLinesMode() throws Exception {
+  @Test public void testMaxLinesMode() {
     int times = 2;
 
     for (int i = 0; i < times; i++) {
@@ -45,7 +45,7 @@ import static org.hamcrest.core.StringContains.containsString;
     }
   }
 
-  @Test public void testMaxCharsMode() throws Exception {
+  @Test public void testMaxCharsMode() {
     openMenu();
     clickMaxCharsView();
 
@@ -79,7 +79,7 @@ import static org.hamcrest.core.StringContains.containsString;
   }
 
   private void assertTextHasOnlyTwoLines() {
-    TextView textView = (TextView) activityTestRule.getActivity().findViewById(R.id.text_view);
+    TextView textView = activityTestRule.getActivity().findViewById(R.id.text_view);
     assertThat(textView.getLineCount()).isEqualTo(2);
   }
 
