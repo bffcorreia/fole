@@ -1,6 +1,7 @@
 package com.example.fole;
 
 import android.os.Bundle;
+import android.support.annotation.AnimRes;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Spannable;
@@ -10,6 +11,8 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 import io.github.bffcorreia.fole.Fole;
 import io.github.bffcorreia.fole.FoleCallback;
@@ -28,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
           + "If you don't claim your humanity you will become a statistic. "
           + "You have been warned.\"";
 
-  TextView textView, toggleView;
+  private TextView textView, toggleView;
   private boolean isInMaxLinesMode;
 
   @Override protected void onCreate(Bundle savedInstanceState) {
@@ -79,15 +82,19 @@ public class MainActivity extends AppCompatActivity {
   private void initView() {
     if (isInMaxLinesMode) {
       toggleView.setVisibility(View.VISIBLE);
+
       Fole.with(textView)
           .text(TEXT)
           .maxLines(2)
+          .expandAnimation(loadAnimation(android.R.anim.fade_in))
+          .collapseAnimation(loadAnimation(android.R.anim.slide_in_left))
           .toggleView(toggleView, buildMaxLinesFoleCallback());
     } else {
       toggleView.setVisibility(View.GONE);
       Fole.with(textView)
           .text(TEXT)
           .maxChars(62)
+          .animation(loadAnimation(android.R.anim.slide_in_left))
           .toggleView(textView, buildMaxCharsFoleCallback());
     }
   }
@@ -123,5 +130,9 @@ public class MainActivity extends AppCompatActivity {
     wordToSpan.setSpan(span, textView.length(), wordToSpan.length(),
         Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
     textView.setText(wordToSpan);
+  }
+
+  private Animation loadAnimation(@AnimRes int res) {
+    return AnimationUtils.loadAnimation(this, res);
   }
 }
