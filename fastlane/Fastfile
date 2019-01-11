@@ -31,8 +31,12 @@ platform :android do
     assemble_sample
     run_tests_firebase_testlab(
       project_id: "fole-34243",
-      model: "Nexus6P",
-      version: "27",
+      devices: [
+        {
+          model: "Nexus6P",
+          version: "27"
+        }
+      ],
       delete_firebase_files: true,
       app_apk: "sample/build/outputs/apk/debug/sample-debug.apk",
       android_test_apk: "sample/build/outputs/apk/androidTest/debug/sample-debug-androidTest.apk")
